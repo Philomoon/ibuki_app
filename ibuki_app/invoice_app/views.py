@@ -11,7 +11,8 @@ from dateutil.relativedelta import relativedelta
 import datetime
 from datetime import timedelta,date
 from django.http import HttpResponse
-
+# import gspread
+# from oauth2client.service_account import ServiceAccountCredentials
 
 def main(request):
     if request.method == 'POST':
@@ -309,3 +310,18 @@ def view_invoices_for_month(request, year, month):
 
     return render(request, 'invoices.html', {'invoices': invoices})
 
+# def invoice_sheet(request):
+#     # Google Sheets APIの認証
+#     scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
+#     creds = ServiceAccountCredentials.from_json_keyfile_name('YOUR_JSON_FILENAME.json', scope)
+#     client = gspread.authorize(creds)
+
+#     # スプレッドシートを開く（タイトルで指定）
+#     sheet = client.open("Your Spreadsheet Title").sheet1
+
+#     # データを書き込む
+#     sheet.append_row(['名前', '利用日', ...])  # これはヘッダーです。適宜調整してください。
+
+#     # Djangoのテンプレート変数から取得したデータをループして追加
+#     for record in service_records:
+#         sheet.append_row([record.user_name, record.date, ...])
